@@ -1,0 +1,12 @@
+.idea
+.vscode
+.zed
+
+*.yml
+*.yaml
+*.iml
+
+*.cmd
+*.batch
+*.sh
+*.exe
