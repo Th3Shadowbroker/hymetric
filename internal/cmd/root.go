@@ -14,7 +14,7 @@ func CreateRootCmd() *cobra.Command {
 	cmd.PersistentFlags().StringP("config", "c", "config.yml", "path to configuration file")
 	cmd.MarkFlagFilename("config", "yml", "yaml")
 
-	cmd.AddCommand(createInitCmd())
+	cmd.AddCommand(createInitCmd(), createServeCmd())
 
 	return cmd
 }
