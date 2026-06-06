@@ -1,2 +1,5 @@
 # HyMetric
 A tiny service for displaying Hypixel timers on a [LaMetric smart-clock](https://lametric.com/). Official successor of the (outdated) [Magma-Boss-Timer-LaMetric](https://github.com/Th3Shadowbroker/Magma-Boss-Timer-LaMetric). This service is powered by the [Hypixel API](https://github.com/InventivetalentDev/HypixelAPI) developed by [inventivetalent](https://github.com/inventivetalentDev).
+
+## How to install
+The app is available in the [LaMetric App Store](https://apps.lametric.com/apps/hypixel_skyblock_timers/9177).
