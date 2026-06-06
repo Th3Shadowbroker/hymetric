@@ -8,16 +8,20 @@ import (
 )
 
 type Frame struct {
-	Text string `json:"text"`
-	Icon string `json:"icon"`
+	Name        string `json:"name"`
+	DisplayName string `json:"displayName"`
+	Text        string `json:"text"`
+	Icon        string `json:"icon"`
 }
 
 func NewFrame(timer *config.Timer, res *Response) Frame {
 	estimate := time.UnixMilli(res.Estimate)
 
 	return Frame{
-		Text: fmtTimeUntil(estimate),
-		Icon: timer.Icon,
+		Name:        timer.Name,
+		DisplayName: timer.DisplayName,
+		Text:        fmtTimeUntil(estimate),
+		Icon:        timer.Icon,
 	}
 }
 
