@@ -5,6 +5,8 @@ import (
 	"time"
 
 	"github.com/th3shadowbroker/hymetric/internal/config"
+	"golang.org/x/text/cases"
+	"golang.org/x/text/language"
 )
 
 type Frame struct {
@@ -15,12 +17,18 @@ type Frame struct {
 }
 
 func NewFrame(timer *config.Timer, res *Response) Frame {
-	estimate := time.UnixMilli(res.Estimate)
+	var text string
+	if res.Estimate != 0 {
+		estimate := time.UnixMilli(res.Estimate)
+		text = fmtTimeUntil(estimate)
+	} else {
+		text = cases.Title(language.English).String(res.Message)
+	}
 
 	return Frame{
 		Name:        timer.Name,
 		DisplayName: timer.DisplayName,
-		Text:        fmtTimeUntil(estimate),
+		Text:        text,
 		Icon:        timer.Icon,
 	}
 }
@@ -28,14 +36,17 @@ func NewFrame(timer *config.Timer, res *Response) Frame {
 func fmtTimeUntil(t time.Time) string {
 	duration := time.Since(t).Abs()
 
-	d := duration.Round(time.Minute)
-	if d <= 0 {
+	dur := duration.Round(time.Minute)
+	if dur <= 0 {
 		return "Now"
 	}
 
-	h := d / time.Hour
-	d -= h * time.Hour
-	m := d / time.Minute
+	oneDay := time.Hour * 24
+	d := dur / oneDay
+	dur -= d * oneDay
+	h := dur / time.Hour
+	dur -= h * time.Hour
+	m := dur / time.Minute
 
-	return fmt.Sprintf("%02d:%02d", h, m)
+	return fmt.Sprintf("%02d:%02d:%02d", d, h, m)
 }
