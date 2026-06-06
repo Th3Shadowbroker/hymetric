@@ -5,7 +5,6 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/th3shadowbroker/hymetric/internal/config"
 	"github.com/th3shadowbroker/hymetric/internal/timer"
 )
@@ -14,7 +13,7 @@ func getTimer(w http.ResponseWriter, r *http.Request) {
 	timers := make([]timer.Frame, 0)
 
 	for _, t := range config.Active.Timers {
-		if chi.URLParam(r, t.Name) == "false" {
+		if r.URL.Query().Get(t.Name) == "false" {
 			continue
 		}
 
