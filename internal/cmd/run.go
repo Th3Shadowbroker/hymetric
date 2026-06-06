@@ -18,6 +18,7 @@ func createServeCmd() *cobra.Command {
 				log.Fatalf("Could not load configuration: %s", err)
 			}
 
+			log.Printf("Running HTTP server on %s...", config.Active.Http.Address)
 			api.Listen(config.Active.Http.Address)
 		},
 	}
