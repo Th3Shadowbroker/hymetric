@@ -10,7 +10,7 @@ import (
 	"github.com/th3shadowbroker/hymetric/internal/timer"
 )
 
-func getTimers(w http.ResponseWriter, r *http.Request) {
+func getTimer(w http.ResponseWriter, r *http.Request) {
 	timers := make([]timer.Frame, 0)
 
 	for _, t := range config.Active.Timers {
