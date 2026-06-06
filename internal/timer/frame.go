@@ -16,11 +16,14 @@ type Frame struct {
 	Icon        string `json:"icon"`
 }
 
-func NewFrame(timer *config.Timer, res *Response) Frame {
+func NewFrame(timer *config.Timer, res *Response, prefix bool, activeText string) Frame {
 	var text string
 	if res.Estimate != 0 {
 		estimate := time.UnixMilli(res.Estimate)
-		text = fmtTimeUntil(estimate)
+		text = fmtTimeUntil(estimate, activeText)
+		if prefix {
+			text = fmt.Sprintf("%s\n%s", timer.DisplayName, text)
+		}
 	} else {
 		text = cases.Title(language.English).String(res.Message)
 	}
@@ -33,12 +36,12 @@ func NewFrame(timer *config.Timer, res *Response) Frame {
 	}
 }
 
-func fmtTimeUntil(t time.Time) string {
+func fmtTimeUntil(t time.Time, activeText string) string {
 	duration := time.Since(t).Abs()
 
 	dur := duration.Round(time.Minute)
 	if dur <= 0 {
-		return "Now"
+		return activeText
 	}
 
 	oneDay := time.Hour * 24

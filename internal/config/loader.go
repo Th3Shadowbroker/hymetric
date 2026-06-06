@@ -34,6 +34,8 @@ func setDefaults() {
 	viper.SetDefault("http.address", "0.0.0.0:8080")
 	viper.SetDefault("cache.ttl", "30s")
 	viper.SetDefault("cache.cleanupInterval", "45s")
+	viper.SetDefault("defaults.activeText", "Now")
+	viper.SetDefault("defaults.prefix", true)
 	viper.SetDefault("timers", []Timer{
 		{
 			Name:        "mytimer",
