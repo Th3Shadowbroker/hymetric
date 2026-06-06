@@ -4,10 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"time"
 
 	"github.com/th3shadowbroker/hymetric/internal/cache"
+	"github.com/th3shadowbroker/hymetric/internal/config"
 )
 
 type Client struct {
@@ -26,11 +28,15 @@ func NewClient() *Client {
 	}
 }
 
-func (c *Client) GetTimer(def Definition) (*Response, error) {
+func (c *Client) GetTimer(def config.Timer) (*Response, error) {
 	if cached, ok := c.cache.Get(def.Name); ok {
 		return cached, nil
 	}
 
+	return c.fetchTimer(def)
+}
+
+func (c *Client) fetchTimer(def config.Timer) (*Response, error) {
 	var response Response
 	if req, err := http.NewRequest(http.MethodGet, def.Url, nil); err == nil {
 		req.Header.Add("User-Agent", "HyMetric/v1")
@@ -56,4 +62,12 @@ func (c *Client) GetTimer(def Definition) (*Response, error) {
 	}
 
 	return nil, fmt.Errorf("could not retrieve data for timer '%s'", def.Name)
+}
+
+func (c *Client) TryFetchAll(definitions []config.Timer) {
+	for _, def := range definitions {
+		if _, err := c.GetTimer(def); err != nil {
+			log.Panicf("Failed to fetch timer %s: %s", err, def.Name)
+		}
+	}
 }

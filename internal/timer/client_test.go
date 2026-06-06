@@ -4,12 +4,13 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/th3shadowbroker/hymetric/internal/config"
 	"github.com/th3shadowbroker/hymetric/internal/timer"
 )
 
 func TestClient(t *testing.T) {
 	client := timer.NewClient()
-	timers := []timer.Definition{
+	timers := []config.Timer{
 		{
 			Name: "darkauction",
 			Url:  "https://hypixel-api.inventivetalent.org/api/skyblock/darkauction/estimate",
