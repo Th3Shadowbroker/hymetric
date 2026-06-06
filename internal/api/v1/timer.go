@@ -15,11 +15,11 @@ func getTimer(w http.ResponseWriter, r *http.Request) {
 	query := r.URL.Query()
 
 	defaults := config.Active.Defaults
-	prefix := comparison.IfThenElse(query.Has("prefix"), query.Get("prefix") == "1", defaults.Prefix)
+	prefix := comparison.IfThenElse(query.Has("prefix"), query.Get("prefix") == "true", defaults.Prefix)
 	activeText := comparison.IfThenElse(query.Has("activeText"), query.Get("activeText"), defaults.ActiveText)
 
 	for _, t := range config.Active.Timers {
-		if query.Get(t.Name) == "0" {
+		if query.Get(t.Name) == "false" {
 			continue
 		}
 
