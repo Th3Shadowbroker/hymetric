@@ -1,0 +1,41 @@
+cache:
+  cleanupinterval: 45s
+  ttl: 30s
+http:
+  address: 0.0.0.0:8080
+defaults:
+  prefix: false
+  activeText: Now
+timers:
+  - name: volcano
+    displayName: Volcano
+    icon: "i30969"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/volcano/estimatedEruption
+  - name: newYear
+    displayName: New Year
+    icon: "29438"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/newyear/estimate
+  - name: darkAuction
+    displayName: Dark Auction
+    icon: "22961"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/darkauction/estimate
+  - name: interest
+    displayName: Bank Interest
+    icon: "4472"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/bank/interest/estimate
+  - name: spooky
+    displayName: "Spooky Festival"
+    icon: "4472"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/spookyFestival/estimate
+  - name: winter
+    displayName: Winter
+    icon: "7367"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/winter/estimate
+  - name: zoo
+    displayName: Traveling Zoo
+    icon: "35303"
+    url: https://hypixel-api.inventivetalent.org/api/skyblock/zoo/estimate
+  - name: workshop
+    displayName: Jerry's Workshop
+    icon: "46065"
+    url: "https://hypixel-api.inventivetalent.org/api/skyblock/jerryWorkshop/estimate"
