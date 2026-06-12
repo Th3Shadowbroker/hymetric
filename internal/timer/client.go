@@ -24,7 +24,7 @@ func NewClient() *Client {
 
 	return &Client{
 		httpCient: httpClient,
-		cache:     cache.NewMemoryCache[string, Response](10*time.Second, 20*time.Second),
+		cache:     cache.NewMemoryCache[string, Response](config.Active.Cache.Ttl, config.Active.Cache.CleanupInterval),
 	}
 }
 
