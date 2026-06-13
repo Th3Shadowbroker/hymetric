@@ -12,6 +12,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
+      - name: Fetch full history
+        run: |
+          git fetch --unshallow
       - name: Configure ssh
         run: |
           mkdir ~/.ssh || true
