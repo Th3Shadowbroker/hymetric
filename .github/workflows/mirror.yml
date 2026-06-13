@@ -1,0 +1,31 @@
+name: Update mirror
+
+# Configures this workflow to run every time a change is pushed to the branch called `release`.
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+      - name: Configure ssh
+        run: |
+          mkdir ~/.ssh || true
+          chmod 700 ~/.ssh
+          echo -e "${{ secrets.CODEBERG_MIRROR_KEY }}" >> ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan codeberg.org >> ~/.ssh/known_hosts
+      - name: Configure git
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - name: Configure upstream repository
+        run: |
+          git remote add mirror ${{ vars.CODEBERG_MIRROR_REPO }}
+      - name: Push to mirror
+        run: |
+          git push --force mirror
